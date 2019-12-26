@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 public class HelloControllerTest {
@@ -24,14 +25,23 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void shouldReturnFirstName() {
+    public void shouldReturnFullNameOfThePerson() {
         Person person = new Person("david", "john");
 
         given(helloRepository.findByLastName("john"))
                 .willReturn(Optional.of(person));
 
-        String firstName = helloController.hello("john");
+        String fullName = helloController.hello("john");
 
-        assertEquals("Hello david john!", firstName);
+        assertEquals("Hello david john!", fullName);
+    }
+
+    @Test
+    public void shouldTellIfPersonIsUnknown() {
+        given(helloRepository.findByLastName(anyString()))
+                .willReturn(Optional.empty());
+
+        String fullName = helloController.hello("harry");
+        assertEquals("Who is this 'harry' you're talking about?", fullName);
     }
 }
