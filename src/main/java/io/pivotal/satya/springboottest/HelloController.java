@@ -2,6 +2,7 @@ package io.pivotal.satya.springboottest;
 
 import io.pivotal.satya.springboottest.person.Person;
 import io.pivotal.satya.springboottest.person.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +14,17 @@ public class HelloController {
 
     private PersonRepository repository;
 
+    @Autowired
     public HelloController(PersonRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("/hello/{lastname}")
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World!";
+    }
+
+    @GetMapping("/hello/{lastName}")
     public String hello(@PathVariable String lastName) {
         Optional<Person> foundPerson = repository.findByLastName(lastName);
 
