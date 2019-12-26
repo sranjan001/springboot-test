@@ -1,5 +1,7 @@
 package io.pivotal.satya.springboottest;
 
+import io.pivotal.satya.springboottest.person.Person;
+import io.pivotal.satya.springboottest.person.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -7,6 +9,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -16,7 +20,7 @@ public class HelloControllerTest {
     private HelloController helloController;
 
     @Mock
-    private HelloRepository helloRepository;
+    private PersonRepository helloRepository;
 
     @BeforeEach
     public void setup() {
@@ -42,6 +46,7 @@ public class HelloControllerTest {
                 .willReturn(Optional.empty());
 
         String fullName = helloController.hello("harry");
-        assertEquals("Who is this 'harry' you're talking about?", fullName);
+//        assertEquals("Who is this 'harry' you're talking about?", fullName);
+        assertThat(fullName, is("Who is this 'harry' you're talking about?"));
     }
 }

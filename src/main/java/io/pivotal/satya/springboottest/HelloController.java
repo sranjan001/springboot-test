@@ -1,5 +1,7 @@
 package io.pivotal.satya.springboottest;
 
+import io.pivotal.satya.springboottest.person.Person;
+import io.pivotal.satya.springboottest.person.PersonRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +11,9 @@ import java.util.Optional;
 @RestController
 public class HelloController {
 
-    private HelloRepository repository;
+    private PersonRepository repository;
 
-    public HelloController(HelloRepository repository) {
+    public HelloController(PersonRepository repository) {
         this.repository = repository;
     }
 

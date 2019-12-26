@@ -1,12 +1,35 @@
-package io.pivotal.satya.springboottest;
+package io.pivotal.satya.springboottest.person;
 
+import org.hibernate.annotations.GeneratorType;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String firstName;
     private String lastName;
+
+    public Person() {
+
+    }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
