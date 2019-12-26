@@ -6,7 +6,7 @@ import java.util.Optional;
 
 @Component
 public class HelloRepository {
-    public Optional<Person> getFirstName(String lastName) {
+    public Optional<Person> findByLastName(String lastName) {
         return null;
     }
 }

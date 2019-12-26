@@ -25,13 +25,13 @@ public class HelloControllerTest {
 
     @Test
     public void shouldReturnFirstName() {
-        Person person = new Person("john", "david");
+        Person person = new Person("david", "john");
 
-        given(helloRepository.getFirstName("david"))
+        given(helloRepository.findByLastName("john"))
                 .willReturn(Optional.of(person));
 
-        String firstName = helloController.hello("david");
+        String firstName = helloController.hello("john");
 
-        assertEquals("john", firstName);
+        assertEquals("Hello david john!", firstName);
     }
 }
