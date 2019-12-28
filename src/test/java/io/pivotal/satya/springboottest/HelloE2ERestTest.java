@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -48,5 +49,25 @@ public class HelloE2ERestTest {
                 .then()
                 .statusCode(is(200))
                 .body(containsString("Hello Peter Pan!"));
+    }
+
+    @Test
+    public void shouldSavePerson() throws Exception {
+        Person harry = new Person("Harry", "Sam");
+        personRepository.save(harry);
+
+        given()
+                .body(harry)
+                .contentType("application/json")
+        .when()
+                .post(String.format("http://localhost:%s/hello", port))
+                .then()
+                .statusCode(is(201));
+
+        when()
+                .get(String.format("http://localhost:%s/hello/Sam", port))
+                .then()
+                .statusCode(is(200))
+                .body(containsString("Hello Harry Sam!"));
     }
 }
