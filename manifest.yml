@@ -1,0 +1,10 @@
+---
+applications:
+  - name: springboot-test
+    path: target/springboot-test-0.0.1-SNAPSHOT.jar
+    routes:
+      - route: springboot-test.cfapps.io
+    services:
+      - mysql
+    env:
+WELCOME_MESSAGE: A spring boot test application
